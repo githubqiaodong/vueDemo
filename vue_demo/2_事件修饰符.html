@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> New Document </title>
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <!-- 生产环境版本，优化了尺寸和速度 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+ </head>
+
+ <body>
+	<!-- 
+	  五个事件修饰符
+		.stop  阻止冒泡修饰符
+		.prevent  阻止元素发生默认行为
+		.capture  捕获
+		.self  只点自己身上才运行
+		.once  只执行一次
+	-->
+	<div id = "app">
+	  <!--  -->
+	   <div @click="parent">parent
+        <div @click.stop="child">child
+            <div @click="grandson.stop">grandson</div>
+        </div>
+    </div></br>
+    <!--  -->
+	   <div @click.capture="parent">parent
+        <div @click="child">child
+            <div @click="grandson">grandson</div>
+        </div>
+    </div>
+
+	   <div @click.capture.stop="parent">parent
+        <div @click="child">child
+            <div @click="grandson">grandson</div>
+        </div>
+    </div></br>
+    <!--  -->
+	 <div @click="parent">parent
+        <div @click.once="child">child
+            <div @click="grandson">grandson</div>
+        </div>
+    </div></br>
+
+	<!--  -->
+	 <div @click="parent">parent
+        <div @click.self="child">child
+            <div @click="grandson">grandson</div>
+        </div>
+    </div></br>
+
+	<!-- 这个代码只会输出parent，不会发生跳转，从而阻止浏览器的默认行为 -->
+	<a href="www.baidu.com" @click.prevent="parent">123</a>
+	
+	  
+	</div>
+	
+	<script>
+	  
+	  var vm = new Vue({
+	    
+	    el: '#app',
+		data: {
+		  
+		  msg: 'demo'
+		  
+		},
+		methods: {
+		  show() {
+		    alert();
+			console.log(this.msg);
+		  },
+		   parent(){ console.log("parent")},
+           child(){console.log("child")},
+           grandson(e){console.log("grandson")}
+
+		}
+	    
+	  })
+	  
+	</script>
+	
+ </body>
+</html>

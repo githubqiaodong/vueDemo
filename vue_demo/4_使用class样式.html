@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> vue class样式的使用 </title>
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <!-- 生产环境版本，优化了尺寸和速度 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+ </head>
+ <style>
+   
+   .red{
+     color: red;
+   }
+   
+   .thin{
+     font-weight: 200;
+   }
+   
+   .italic{
+     font-style: italic;
+   }
+   
+   .active{
+     letter-spacing: 0.5em;
+   }
+   
+ </style>
+ <body>
+	<!-- 
+	
+	<h1 style="color:red;">123</h1>
+	
+	<h1 class="red thin">123</h1>
+	 -->
+	<!-- 使用数组 -->
+	<h1 :class="['red','thin']">123</h1>
+	
+	<!-- 使用数组 -->
+	<h1 :class="['red','thin',{'active':flag}]">123</h1>
+	
+	<!-- 使用三元表达式 -->
+	<h1 :class="[flag?'red':'']">123</h1>
+	
+	<h1 :class="obj">123</h1>
+	
+	<div id = "app">
+	  
+	</div>
+	
+	
+	
+	<script>
+	  
+	  var vm = new Vue({
+	    
+	    el: '#app',
+		data: {
+		  
+		  msg: 'demo',
+		  flag: false,
+		  obj: { red : true, thin : false, italic : true, active :  }
+		  
+		},
+		methods: {
+		  show() {
+		    alert();
+			console.log(this.msg);
+		  }
+		}
+	    
+	  })
+	  
+	</script>
+	
+ </body>
+</html>

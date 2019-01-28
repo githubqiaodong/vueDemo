@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> v-model 双向绑定小练习 </title>
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <!-- 生产环境版本，优化了尺寸和速度 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+ </head>
+
+ <body>
+	<!--  -->
+	<div id = "app">
+	  <input type="text" v-model="n1">
+	  
+	  <select v-model="opt">
+		<option value="+">+</option>
+		<option value="-">-</option>
+		<option value="*">*</option>
+		<option value="/">/</option>
+	  </select>
+	  
+	  <input type="text" v-model="n2">
+	  
+	  <input type="button" value="=" @click="calc">
+	  
+	  <input type="text" v-model="result">
+	  
+	</div>
+	
+	<script>
+	  
+	  var vm = new Vue({
+	    
+	    el: '#app',
+		data: {
+		  
+		  msg: 'demo',
+		  n1: 0,
+		  n2: 0,
+		  result: 0,
+		  opt: '+'
+		  
+		},
+		methods: {
+		  show() {
+		    alert();
+			console.log(this.msg);
+		  },
+		  calc() { //计算器的方法
+			//逻辑  parseInt转换成int类型
+			/*switch(this.opt) {
+			  case '+':
+			    this.result = parseInt(this.n1) + parseInt(this.n2);
+				break;                                             
+		      case '-':                                            
+			    this.result = parseInt(this.n1) - parseInt(this.n2);
+				break;                                             
+			  case '*':                                            
+			    this.result = parseInt(this.n1) * parseInt(this.n2);
+				break;                                             
+			  case '/':                                            
+			    this.result = parseInt(this.n1) / parseInt(this.n2);
+				break;
+				*/
+				
+				//第二种写法，利用eval方法的特性来实现。
+				var codeStr = 'parseInt(this.n1) '+ this.opt +' parseInt(this.n2)';
+			    this.result = eval(codeStr);
+			}
+			
+			
+		  }
+		
+	    
+	  })
+	  
+	</script>
+	
+ </body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> New Document </title>
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <!-- 生产环境版本，优化了尺寸和速度 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+ </head>
+
+ <body>
+    <!--  -->
+    <!-- 将来new的vue实例，会控制这个元素中的所有内容 -->
+	<!-- vue 实例所控制的这个元素区域，就是我们的 v -->
+    <div id="app">
+	  <!-- v-text 会覆盖元素中原本的内容，但是插值表达式只会替换自己的占位符，不会把整个元素的内容清空 -->
+	  {{ message }}
+	  <p v-cloak>{{ msg }}====</p>
+	  <h3 v-text="msg">被覆盖的内容</h3>
+	  <!-- 可以识别HTML标签 -->
+	  <div v-html="htm"></div>
+	  <!-- v-bind 简写：号， 是vue中用于绑定属性的命令 -->
+	  <input type="button" :value="mytitle + 123" v-on:click="show"></br>
+	  <!-- 跑马灯效果的制作 -->
+	  <p>{{ pmsg }}</p>
+	  <input type="button" :value="lql" v-on:click="long">
+	  <input type="button" :value="jss" v-on:click="stop">
+	  
+	</div>
+  
+  <script>
+    
+	//注意：在vue实例中，如果想要获取data上的数据，或者要调用methods中的方法，必须通过this.数据属性名  或  this.方法名 来进行访问，这里的this就表示我们new出来的VM实例对象
+	//创建一个vue实例
+	//当我们导入包之后，在浏览器的内存中，就多了一个vue构造函数
+	//注意：我们new出来的这个对象，就是我们MVVM中的VM调度者
+	var vm = new Vue({
+	  el: '#app', //表示：我们当前new的这个vue实例，要控制页面上的哪个区域
+	  //这里的data就是MVVM中的M，专门用来保存每个页面的数据的
+	  data: { //data属性中，存放的是el中要用到的数据
+		message: 'Hello Vue!123', //通过vue提供的指令，很方便的把数据渲染到页面上，不在手动操作dom元素，vue框架不提倡我们手动操作dom元素
+		msg: '解决插值表达式闪烁的问题v-cloak',
+		htm: '<h3>123</h3>',
+		mytitle: '我的按钮',
+		pmsg: '北京科蓝科技有限公司',
+		lql: '开始',
+		jss: '结束',
+		intervalId: null
+	  },
+	  methods: { //这个methods中定义了当前vue实例所有可用的方法
+	    show: function () {
+		  alert('hello')
+		},
+		long() {
+		  console.log(this.pmsg)
+		  //获取到头的第一个字符
+		  /*
+		  var _this = this;
+		  setInterval(function() {
+		    var start = _this.pmsg.substring(0,1)
+		    //获取到后面的所有字符
+		    var end = _this.pmsg.substring(1)
+		    //重新拼接新的字符串，并赋值给this.pmsg
+		    _this.pmsg = end + start;
+		  }, 400);
+		  */
+		  //两种方式解决this指向问题
+		  if(this.intervalId != null) return;
+		  //intervalId是定时器的返回值
+		  this.intervalId = setInterval( () => {
+		    var start = this.pmsg.substring(0,1)
+		    //获取到后面的所有字符
+		    var end = this.pmsg.substring(1)
+		    //重新拼接新的字符串，并赋值给this.pmsg
+		    this.pmsg = end + start;
+		  }, 400);
+		  
+		  //注意：var实例会监听自身data中所有数据的改变，只要数据一发生变化，就会把最新的数据，从data上同步到页面中去；好处：程序员只需要关心数据，不需要考虑如何重新渲染dom页面。
+		  
+		},
+		stop() { //停止定时器
+		  //alert('stop')
+		  clearInterval(this.intervalId);
+		  //每当清除了定时器之后，需要重新把intervalId值设为null
+		  this.intervalId = null;
+		}
+	  }
+	})
+  </script>
+ </body>
+</html>
