@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> Vue中样式style </title>
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <!-- 生产环境版本，优化了尺寸和速度 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+ </head>
+
+ <body>
+	<!-- 有三种用法 -->
+	<div id = "app">
+	  <!-- 对象就是无序键值对的集合 -->
+	  <!-- 有一种用法：在style中定义一个对象 -->
+	  <!-- <h1 :style="{ color:'red','font-weight':200 }">这是一个H1</h1> -->
+	  <!-- 有二种用法：将定义的对象抽离出来放在data中，style中放变量 -->
+	  <!-- <h1 :style="styleobj1">这是一个H1</h1> -->
+	  <!-- 有三种用法：定义一个数组，将变量名放入数组中，多个用逗号分割 -->
+	  <h1 :style="[ styleobj1,styleobj2 ]">这是一个h1</h1>
+	</div>
+	
+	<script>
+	  
+	  var vm = new Vue({
+	    
+	    el: '#app',
+		data: {
+		  
+		  msg: 'demo',
+		  styleobj1: { color:'red','font-weight':200 },
+		  styleobj2: { 'font-style': 'italic' }
+		  
+		},
+		methods: {
+		  show() {
+		    alert();
+			console.log(this.msg);
+		  }
+		}
+	    
+	  })
+	  
+	</script>
+	
+ </body>
+</html>

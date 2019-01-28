@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> v-for的使用 </title>
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <!-- 生产环境版本，优化了尺寸和速度 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+ </head>
+
+ <body>
+	<!--  -->
+	<div id = "app">
+	  <!-- 单个冗余遍历，不推荐 -->
+	  <!-- 
+	  <p>{{ list[0] }}</p>
+	  <p>{{ list[1] }}</p>
+	  <p>{{ list[2] }}</p>
+	  <p>{{ list[3] }}</p>
+	  <p>{{ list[4] }}</p>
+	  <p>{{ list[5] }}</p> 
+	  -->
+
+	  <!-- v-for循环普通数组 -->
+	  <p v-for="item in list">{{item}}</p>
+
+	  <!-- 拿到数组里面索引的值 -->
+	  <p v-for="(item, i) in list">索引值是：{{i}}  =====  每一项是：{{item}}</p>
+
+	  <!-- 循环对象数组 -->
+	  <p v-for="( user, i ) in list">Id:{{ user.id }}===  名字：{{ user.name }}===  索引：{{i}}</p>	 
+ 
+	  <!-- 循环对象:在遍历对象身上的值的时候，除了有key，val，在第三个位置还有一个索引 -->
+	  <p v-for="( val, key, i ) in user">值是:{{ val }}===  键是：{{ key }}===  索引：{{i}}</p>
+
+	  <!-- 迭代数字，注意：使用v-for迭代数字的话，前面的count值从 1 开始 -->
+ 	  <p v-for="count in 10">这是第：{{ count }} 次循环</p>
+
+	  <!-- v-for循环中key属性的使用 -->
+	  <!-- 注意：v-for循环的时候，key属性只能使用number或者string，不写的话可能在使用组件开发的时候会有问题 -->
+	  <!-- 注意：key在使用的时候，必须使用v-bind属性绑定形式，指定key的值，值不能是对象，需要具体值 -->
+	  <p v-for="item in array" :key="item.id">
+		<input type="checkbox">
+		 {{ item.id }} --- {{ item.name }}
+	  </p>
+
+	  <div>
+	    <label>ID:
+		<input type="text" v-model="id">
+	    </label>
+
+	    <label>Name:
+		<input type="text" v-model="name">
+	    </label>
+		  
+	    <input type="button" value="添加" @click="add">
+	  </div>
+
+	</div>
+	
+	<script>
+	  
+	  var vm = new Vue({
+	    
+	    el: '#app',
+		data: {
+		  
+		  msg: 'demo',
+		  id: '',
+		  name: '',
+		  list: [1, 2, 3, 4, 5, 6],
+		  list: [
+			{ id:1, name: '张三' },
+			{ id:1, name: '张三' },
+			{ id:1, name: '张三' },
+			{ id:1, name: '张三' }
+			],
+		  user: { 
+			id: 1,
+			name: '张顺',
+			gender: '男'
+			 },
+		  array: [ 
+			{ id: 1, name: '小龙女' },
+			{ id: 2, name: '杨过' },
+			{ id: 3, name: '郭靖' },
+			{ id: 4, name: '黄蓉' },
+			{ id: 5, name: '老顽童' }
+			 ]
+		  
+		},
+		methods: {
+		  show() {
+		    alert();
+			console.log(this.msg);
+		  },
+		  add() { //添加方法:其中push是从最后面添加的，而unshift是从顶部插入的，从顶部插入的时候就可以明显的看出它的键和值没有绑定的问题啦
+			//this.array.push({ id: this.id, name: this.name })
+			this.array.unshift({ id: this.id, name: this.name })
+			
+			 }
+		}
+	    
+	  })
+	  
+	</script>
+	
+ </body>
+</html>
